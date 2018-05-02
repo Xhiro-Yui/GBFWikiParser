@@ -2,6 +2,8 @@ package com.github.xhiroyui.gbfwikiparser;
 
 import com.github.xhiroyui.gbfwikiparser.beans.GBFWeapon;
 import com.github.xhiroyui.gbfwikiparser.beans.GBFWikiObject;
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -56,13 +58,55 @@ public class Parser {
     }
 
     /**
-     * Parses the image returned by the parser into a full link.
+     * Convenience method which returns an object that contains image links instead of image filenames. This is equivalent to calling `parse()` followed by `convertImageToLinks()`.
+     */
+    public GBFWikiObject parseWithImageLinks() throws IOException {
+        GBFWikiObject wikiObject = new GBFWikiObject();
+        switch (this.type) {
+            case WEAPON:
+                parseWeapon(wikiObject);
+        }
+        convertImageToLinks(wikiObject);
+        return wikiObject;
+    }
+
+
+
+    /**
+     * Converts all image filenames found in the object into their respective image links.
      *
-     * @param imageUrlInput input link
+     * @param wikiObject input object
      * @return full link path
      */
-    public String parseImageLink(String imageUrlInput) {
-        return imageUrlInput;
+    private GBFWikiObject convertImageToLinks(GBFWikiObject wikiObject) {
+        if (wikiObject.getGbfWeapon() != null) {
+            wikiObject.getGbfWeapon().setImgFull(wikiObject.getGbfWeapon().getImgFull() == null ? null : convertImageToLinksAux(wikiObject.getGbfWeapon().getImgFull().replace(" ", "_")));
+            wikiObject.getGbfWeapon().setImgIcon(wikiObject.getGbfWeapon().getImgIcon() == null ? null : convertImageToLinksAux(wikiObject.getGbfWeapon().getImgIcon().replace(" ", "_")));
+            wikiObject.getGbfWeapon().setImgTall(wikiObject.getGbfWeapon().getImgTall() == null ? null : convertImageToLinksAux(wikiObject.getGbfWeapon().getImgTall().replace(" ", "_")));
+            wikiObject.getGbfWeapon().setImgSquare(wikiObject.getGbfWeapon().getImgSquare() == null ? null : convertImageToLinksAux(wikiObject.getGbfWeapon().getImgSquare().replace(" ", "_")));
+            wikiObject.getGbfWeapon().setSkill1Icon(wikiObject.getGbfWeapon().getSkill1Icon() == null ? null : convertImageToLinksAux(wikiObject.getGbfWeapon().getSkill1Icon().substring(0,1).toUpperCase() + wikiObject.getGbfWeapon().getSkill1Icon().replace(" ", "_").substring(1)));
+            wikiObject.getGbfWeapon().setSkill1UpgradeIcon(wikiObject.getGbfWeapon().getSkill1UpgradeIcon() == null ? null : convertImageToLinksAux(wikiObject.getGbfWeapon().getSkill1UpgradeIcon().replace(" ", "_")));
+            wikiObject.getGbfWeapon().setSkill2Icon(wikiObject.getGbfWeapon().getSkill2Icon() == null ? null : convertImageToLinksAux(wikiObject.getGbfWeapon().getSkill2Icon().replace(" ", "_")));
+            wikiObject.getGbfWeapon().setSkill2UpgradeIcon(wikiObject.getGbfWeapon().getSkill2UpgradeIcon() == null ? null : convertImageToLinksAux(wikiObject.getGbfWeapon().getSkill2UpgradeIcon().replace(" ", "_")));
+
+
+        }
+        return wikiObject;
+    }
+
+    /**
+     * Single converter that converts a given filename into an image link from gbf.wiki.
+     *
+     * @param imageLink input object
+     * @return full link path
+     */
+    private String convertImageToLinksAux(String imageLink) {
+        StringBuilder output = new StringBuilder().append(Constants.gbfWikiImageLinkSuffix);
+        String md5 = Hashing.md5().newHasher().putString(imageLink, Charsets.UTF_8).hash().toString();
+        output.append(md5, 0, 1).append("/")
+                .append(md5, 0, 2).append("/")
+                .append(imageLink);
+        return output.toString();
     }
 
     private void parseWeapon(GBFWikiObject wikiObject) throws IOException {

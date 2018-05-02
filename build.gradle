@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-//    compile group: 'com.google.guava', name: 'guava', version: '24.1-jre'
+    compile group: 'com.google.guava', name: 'guava', version: '24.1-jre'
     compile 'com.google.code.gson:gson:2.8.2'
 }
 
