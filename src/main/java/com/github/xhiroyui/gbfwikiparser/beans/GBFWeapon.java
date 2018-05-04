@@ -60,6 +60,9 @@ public class GBFWeapon {
     private String bullet8;
     private String bullet9;
 
+    public GBFWeapon() {
+    }
+
     public String getName() {
         return name;
     }

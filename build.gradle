@@ -12,22 +12,23 @@ repositories {
 }
 
 dependencies {
-    compile group: 'com.google.guava', name: 'guava', version: '24.1-jre'
+    compile 'com.google.guava:guava:24.1-jre'
     compile 'com.google.code.gson:gson:2.8.2'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 }
 
-task dist(type: Copy){
-    from '..\\GBFWikiParser\\build\\libs'
-    into '..\\OrinBotD4J\\lib'
-    include('GBFWikiParser*.jar')
-}
-
-jar {
-    manifest {
-        attributes "Main-Class": "com.github.xhiroyui.gbfwikiparser.GBFWikiParser"
-    }
-
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-}
+//task dist(type: Copy){
+//    from '..\\GBFWikiParser\\build\\libs'
+//    into '..\\OrinBotD4J\\lib'
+//    include('GBFWikiParser*.jar')
+//}
+//
+//jar {
+//    manifest {
+//        attributes "Main-Class": "com.github.xhiroyui.gbfwikiparser.GBFWikiParser"
+//    }
+//
+//    from {
+//        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+//    }
+//}
