@@ -1,3 +1,3 @@
 # GBFWikiParser
 
-A parser for (GBFWiki)[http://gbf.wiki]
+A parser for [GBFWiki](http://gbf.wiki)
