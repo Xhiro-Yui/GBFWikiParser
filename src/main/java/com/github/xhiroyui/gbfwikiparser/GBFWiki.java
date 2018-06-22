@@ -71,6 +71,9 @@ public class GBFWiki {
             return processData();
         }
 
+        /*
+        Processes data with the given parameters
+         */
         public List<GBFWikiObject> processData() {
             List<GBFWikiObject> data = new ArrayList<>();
             if (results.objectType == WikiObjectType.WEAPON) {
