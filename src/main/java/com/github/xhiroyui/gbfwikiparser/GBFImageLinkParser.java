@@ -8,14 +8,14 @@ import com.google.common.hash.Hashing;
 public class GBFImageLinkParser {
 //    private static Logger log = LoggerFactory.getLogger(GBFImageLinkParser.class);
     /**
-     * Converts an image file name into a full link to the image on GBFWiki.
+     * Converts an image file name into a full link to the image on GBFWikiObject.
      *
      * @param input Filename inclusive with extension
      * @return A URL link to the image in String format
      */
     public static String convertImageToLink(String input) {
         if (input != null && input.length()>0) {
-            StringBuilder output = new StringBuilder().append(Constants.gbfWikiImageLinkSuffix);
+            StringBuilder output = new StringBuilder().append(Constants.GBF_WIKI_IMAGE_LINK_SUFFIX);
             String md5 = Hashing.md5().newHasher().putString(input, Charsets.UTF_8).hash().toString();
             output.append(md5, 0, 1).append("/")
                     .append(md5, 0, 2).append("/")

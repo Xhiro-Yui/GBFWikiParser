@@ -1,9 +1,9 @@
 package com.github.xhiroyui.gbfwikiparser;
 
 public enum WikiObjectType {
-    CHARACTER,
+    //CHARACTER,
     WEAPON,
-    SUMMON,
+    //SUMMON,
     SM_SKILL,
     CLASS_SKILL,
     EVENT

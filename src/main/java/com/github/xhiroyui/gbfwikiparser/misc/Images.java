@@ -1,7 +1,7 @@
 package com.github.xhiroyui.gbfwikiparser.misc;
 
 /**
- * A collection of images that can be found in GBFWiki but does not fit anywhere else. Mainly for convenient access to the image URLs.
+ * A collection of images that can be found in GBFWikiObject but does not fit anywhere else. Mainly for convenient access to the image URLs.
  */
 public enum Images {
     RARITY_SSR("https://gbf.wiki/images/f/fb/Label_Rarity_SSR.png"),

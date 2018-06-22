@@ -1,6 +1,6 @@
 package com.github.xhiroyui.gbfwikiparser.beans;
 
-public class GBFWeapon {
+public class GBFWeapon implements GBFWikiObject {
     private String name;
     private String title;
     private String group;

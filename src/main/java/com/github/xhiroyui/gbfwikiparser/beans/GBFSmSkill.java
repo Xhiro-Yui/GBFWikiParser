@@ -1,6 +1,6 @@
 package com.github.xhiroyui.gbfwikiparser.beans;
 
-public class GBFSmSkill {
+public class GBFSmSkill implements GBFWikiObject {
 
     private String name;
     private String rarity;

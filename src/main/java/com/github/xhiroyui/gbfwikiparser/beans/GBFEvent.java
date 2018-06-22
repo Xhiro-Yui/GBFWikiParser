@@ -1,6 +1,6 @@
 package com.github.xhiroyui.gbfwikiparser.beans;
 
-public class GBFEvent {
+public class GBFEvent implements GBFWikiObject {
 
     private String name;
     private String grp;
