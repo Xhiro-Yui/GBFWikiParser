@@ -12,30 +12,70 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * GBF Wiki parser object.
+ */
 public class GBFWiki {
     private static Logger log = LoggerFactory.getLogger(GBFWiki.class);
     private WikiObjectType objectType;
     private String query;
     private int queryLimit = 1;
 
+    /**
+     * Starting point for creating the GBFWiki (parser) object.
+     */
     public GBFWiki() {
     }
 
+    /**
+     * Object type input
+     *
+     * @param objectType The object type you wish to parse from GBF Wiki. Refer to {@link WikiObjectType} for allowed type
+     * @return Method chain
+     */
     public static IQuery wikiObjectType(WikiObjectType objectType) {
         return new GBFWiki.Builder(objectType);
     }
 
+    /**
+     * A part of the fluent interface
+     */
     public interface IQuery {
+        /**
+         * Query input
+         *
+         * @param query Search query to search GBFWiki. Not case-sensitive.
+         * @return Method chain
+         */
         IParse query(String query);
     }
 
+    /**
+     * A part of the fluent interface
+     */
     public interface IParse {
+        /**
+         * <i><b>Optional</b> - Query limit input</i>
+         *
+         * @param queryLimit Limits the amount of rows returned by the search. Default value is 1. Value cannot go below 1, and input < 1 is automatically converted to 1.
+         * @return Method chain
+         */
         IParseList queryLimit(int queryLimit);
 
+        /**
+         * Method calling when default query limit (1) is used.
+         *
+         * @return A single object containing data returned by search query. This object should be cast into its respective beans for further usage.
+         */
         GBFWikiObject parse();
     }
 
     public interface IParseList {
+        /**
+         * Method calling when default query limit is increased.
+         *
+         * @return A list of objects containing data returned by search query. This object should be cast into its respective beans for further usage.
+         */
         List<GBFWikiObject> parseAsList();
     }
 
@@ -62,6 +102,11 @@ public class GBFWiki {
 
         @Override
         public IParseList queryLimit(int queryLimit) {
+            if (queryLimit < 1) {
+                log.error("Invalid query limit exception. Query limit should only be a positive integer.");
+                throw new IllegalArgumentException("Query limit must be a positive integer.");
+            }
+
             results.queryLimit = queryLimit;
             return this;
         }
@@ -71,8 +116,10 @@ public class GBFWiki {
             return processData();
         }
 
-        /*
-        Processes data with the given parameters
+        /**
+         * Method to process data based on provided parameters
+         *
+         * @return A list containing objects of the specified type. List will be empty if no results are found.
          */
         public List<GBFWikiObject> processData() {
             List<GBFWikiObject> data = new ArrayList<>();
@@ -127,6 +174,8 @@ public class GBFWiki {
 
         }
     }
+
+
 
 
 }

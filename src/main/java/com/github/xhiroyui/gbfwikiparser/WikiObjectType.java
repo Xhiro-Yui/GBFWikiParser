@@ -1,5 +1,8 @@
 package com.github.xhiroyui.gbfwikiparser;
 
+/**
+ * Selection of wiki object types
+ */
 public enum WikiObjectType {
     //CHARACTER,
     WEAPON,
