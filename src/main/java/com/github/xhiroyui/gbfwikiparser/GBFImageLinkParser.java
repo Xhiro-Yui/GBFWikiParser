@@ -17,7 +17,7 @@ public class GBFImageLinkParser {
     public static String convertImageToLink(String input) {
         if (input != null && input.length()>0) {
             StringBuilder output = new StringBuilder().append(Constants.GBF_WIKI_IMAGE_LINK_SUFFIX);
-            String md5 = Hashing.md5().newHasher().putString(input, Charsets.UTF_8).hash().toString();
+            @SuppressWarnings("deprecation") String md5 = Hashing.md5().newHasher().putString(input, Charsets.UTF_8).hash().toString();
             output.append(md5, 0, 1).append("/")
                     .append(md5, 0, 2).append("/")
                     .append(input);
