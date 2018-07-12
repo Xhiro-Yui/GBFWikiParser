@@ -57,7 +57,7 @@ public class GBFWiki {
         /**
          * <i><b>Optional</b> - Query limit input</i>
          *
-         * @param queryLimit Limits the amount of rows returned by the search. Default value is 1. Value cannot go below 1, and input < 1 is automatically converted to 1.
+         * @param queryLimit Limits the amount of rows returned by the search. Default value is 1. Value cannot go below 1, and input lower than 1 is automatically converted to 1.
          * @return Method chain
          */
         IParseList queryLimit(int queryLimit);

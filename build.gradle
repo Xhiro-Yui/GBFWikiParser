@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id "com.jfrog.bintray" version "1.8.4"
+
 }
 
 group 'com.github.xhiroyui'
@@ -34,3 +36,20 @@ task javadocJar(type: Jar) {
     from javadoc
 }
 
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    configurations = ['archives']
+    pkg {
+        repo = 'general'
+        name = 'GBFWikiParser'
+        version {
+            name = '1.0'
+        }
+    }
+}
+
+//artifacts {
+//    archives javadocJar
+//    archives sourcesJar
+//}

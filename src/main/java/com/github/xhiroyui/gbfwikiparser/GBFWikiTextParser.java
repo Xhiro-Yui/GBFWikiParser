@@ -12,7 +12,7 @@ public class GBFWikiTextParser {
      * @return Input string without html entities
      */
     private static String removeHtml(String input) {
-        System.out.println("Output before modification : " + StringEscapeUtils.unescapeHtml4(input));
+//        System.out.println("Output before modification : " + StringEscapeUtils.unescapeHtml4(input));
         return StringEscapeUtils.unescapeHtml4(input).replaceAll(Constants.HTML_BR_AND_HR_REGEX,". " ).replaceAll(Constants.HTML_TEXT_REGEX, "").replaceAll(Constants.EXTRA_DOTS_REGEX, ". ");
     }
 
