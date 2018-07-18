@@ -1,12 +1,11 @@
 plugins {
     id 'java'
     id "com.jfrog.bintray" version "1.8.4"
+    id 'maven-publish'
 
 }
 
-group 'com.github.xhiroyui'
-version '1.0'
-
+version = '1.0.1'
 sourceCompatibility = 1.8
 
 repositories {
@@ -36,20 +35,30 @@ task javadocJar(type: Jar) {
     from javadoc
 }
 
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    configurations = ['archives']
-    pkg {
-        repo = 'general'
-        name = 'GBFWikiParser'
-        version {
-            name = '1.0'
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            groupId 'com.github.xhiroyui.gbfwikiparser'
+            artifactId 'gbfwikiparser'
         }
     }
 }
 
-//artifacts {
-//    archives javadocJar
-//    archives sourcesJar
-//}
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    pkg {
+        repo = 'general'
+        name = 'GBFWikiParser'
+        publications = ['MyPublication']
+        version {
+            name = 'GBFWikiParser'
+            desc = 'Parser to extract data out of GBF Wiki (gbf.wiki)'
+            vcsTag = 'master'
+        }
+    }
+}
+
